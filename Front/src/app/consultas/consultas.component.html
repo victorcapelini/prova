@@ -1,0 +1,28 @@
+<div class="row justify-content-start botoes">
+    <div class="col-1">
+        <button type="button" class="btn btn-success">Incluir</button>
+    </div>
+    <div class="col-1">
+        <button type="button" class="btn btn-primary">Alterar</button>
+    </div>
+    <div class="col-1">
+        <button type="button" class="btn btn-danger">Excluir</button>
+    </div>
+
+    <div class="offset-4 col-4 input-group">
+        <input type='text' class="form-control" placeholder='Pressione a tecla enter para buscar' />
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-12">
+        <ngx-datatable class="material" [rows]="rows" columnMode="force" [headerHeight]="50" [footerHeight]="50"
+            rowHeight="auto" [externalPaging]="true" [count]="page.totalElements" [offset]="page.pageNumber"
+            [limit]="page.size" (page)="setPage($event)">
+
+            <ngx-datatable-column prop="Name" name="Nome"></ngx-datatable-column>
+            <ngx-datatable-column prop="Gender" name="Genero"></ngx-datatable-column>
+            <ngx-datatable-column prop="Company" name="Compania"></ngx-datatable-column>
+        </ngx-datatable>
+    </div>
+</div>
