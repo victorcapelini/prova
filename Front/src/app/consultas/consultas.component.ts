@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { Page } from '../Models/Page';
+import { Page } from '../Model/Page';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-consultas',
@@ -27,7 +28,7 @@ export class ConsultasComponent implements OnInit {
   { Name: 'Victor24', Gender: 'Teste2', Company: 'Compania2' },]
 
 
-  constructor() { }
+  constructor(private router: Router) { }
 
   ngOnInit(): void {
     this.page.totalElements = this.base.length;
@@ -43,6 +44,10 @@ export class ConsultasComponent implements OnInit {
     this.page.pageNumber = pageInfo.offset;
 
     this.rows = this.base.slice((this.page.pageNumber * this.page.size), ((this.page.pageNumber + 1) * this.page.size))
+  }
+
+  incluir(){
+    this.router.navigate(['incluir']);
   }
 
 }
