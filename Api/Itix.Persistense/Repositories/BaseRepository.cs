@@ -23,7 +23,7 @@ namespace Itix.Persistense.Repositories
 
         public abstract T Obter(int codigo);
 
-        public abstract List<T> ObterLista(BaseViewModel param);
+        public abstract (int,List<T>) ObterLista(BaseViewModel param);
 
     }
 }

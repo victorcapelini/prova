@@ -9,7 +9,8 @@ import { HomeComponent } from './home/home.component';
 import { ConsultasComponent } from './consultas/consultas.component';
 import { IncluirConsultaComponent } from './consultas/incluir-consulta/incluir-consulta.component';
 import { ReactiveFormsModule } from '@angular/forms';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+import { MyHttpInterceptor } from './util/MyHttpInterceptor';
 
 @NgModule({
   declarations: [
@@ -26,7 +27,7 @@ import { HttpClientModule } from '@angular/common/http';
     ReactiveFormsModule,
     HttpClientModule
   ],
-  providers: [],
+  providers: [{ provide: HTTP_INTERCEPTORS, useClass: MyHttpInterceptor, multi: true }],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

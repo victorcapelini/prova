@@ -8,9 +8,9 @@ namespace Itix.Backoffice.Controllers.Consulta
     {
         [HttpPost]
         [Route("AdicionarConsulta")]
-        public async Task<IActionResult> AdicionarConsulta([FromBody]ConsultaViewModel consulta)
+        public IActionResult AdicionarConsulta([FromBody]ConsultaViewModel consulta)
         {
-            return CustomOk(await _consultaService.AdicionarConsulta(consulta));
+            return CustomOk(_consultaService.AdicionarConsulta(consulta));
         }
     }
 }

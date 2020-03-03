@@ -10,7 +10,8 @@
     </div>
 
     <div class="offset-4 col-4 input-group">
-        <input type='text' class="form-control" placeholder='Pressione a tecla enter para buscar' />
+        <input type='text' class="form-control" placeholder='Pressione a tecla enter para buscar'
+            (keyup)='filtro($event)' />
     </div>
 </div>
 
@@ -18,11 +19,13 @@
     <div class="col-12">
         <ngx-datatable class="material" [rows]="rows" columnMode="force" [headerHeight]="50" [footerHeight]="50"
             rowHeight="auto" [externalPaging]="true" [count]="page.totalElements" [offset]="page.pageNumber"
-            [limit]="page.size" (page)="setPage($event)">
+            [limit]="page.size" (page)="setPage($event)" [selected]="selected" selectionType="single"
+            (activate)="onActivate($event)" (select)="onSelect($event)">
 
-            <ngx-datatable-column prop="Name" name="Nome"></ngx-datatable-column>
-            <ngx-datatable-column prop="Gender" name="Genero"></ngx-datatable-column>
-            <ngx-datatable-column prop="Company" name="Compania"></ngx-datatable-column>
+            <ngx-datatable-column prop="paciente" name="Paciente"></ngx-datatable-column>
+            <ngx-datatable-column prop="inicio" name="Inicio"></ngx-datatable-column>
+            <ngx-datatable-column prop="fim" name="Fim"></ngx-datatable-column>
+            <ngx-datatable-column prop="observacoes" name="Observações"></ngx-datatable-column>
         </ngx-datatable>
     </div>
 </div>

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Page } from '../Model/Page';
 import { Router } from '@angular/router';
+import { ConsultasService } from './consultas.service';
 
 @Component({
   selector: 'app-consultas',
@@ -10,44 +11,48 @@ import { Router } from '@angular/router';
 export class ConsultasComponent implements OnInit {
   page = new Page();
   rows: Object[] = [];
+  selected: Object[] = [];
 
-  base: Object[] = [{ Name: 'Victor', Gender: 'Teste', Company: 'Compania' },
-  { Name: 'Victor1', Gender: 'Teste1', Company: 'Compania1' },
-  { Name: 'Victor2', Gender: 'Teste2', Company: 'Compania2' },
-  { Name: 'Victor3', Gender: 'Teste', Company: 'Compania' },
-  { Name: 'Victor11', Gender: 'Teste1', Company: 'Compania1' },
-  { Name: 'Victor21', Gender: 'Teste2', Company: 'Compania2' },
-  { Name: 'Victor31', Gender: 'Teste', Company: 'Compania' },
-  { Name: 'Victor12', Gender: 'Teste1', Company: 'Compania1' },
-  { Name: 'Victor22', Gender: 'Teste2', Company: 'Compania2' },
-  { Name: 'Victor32', Gender: 'Teste', Company: 'Compania' },
-  { Name: 'Victor13', Gender: 'Teste1', Company: 'Compania1' },
-  { Name: 'Victor23', Gender: 'Teste2', Company: 'Compania2' },
-  { Name: 'Victor33', Gender: 'Teste', Company: 'Compania' },
-  { Name: 'Victor14', Gender: 'Teste1', Company: 'Compania1' },
-  { Name: 'Victor24', Gender: 'Teste2', Company: 'Compania2' },]
-
-
-  constructor(private router: Router) { }
+  constructor(private router: Router, private service: ConsultasService) { }
 
   ngOnInit(): void {
-    this.page.totalElements = this.base.length;
-    this.page.totalPages = this.page.totalElements % this.page.size;
-    this.setPage({ offset: 0 });
+    this.carregaTabela();
   }
 
   setPage(pageInfo) {
-
-    console.log(pageInfo);
-    this.page.totalElements = this.base.length;
-    this.page.totalPages = this.page.totalElements % this.page.size;
     this.page.pageNumber = pageInfo.offset;
-
-    this.rows = this.base.slice((this.page.pageNumber * this.page.size), ((this.page.pageNumber + 1) * this.page.size))
+    this.carregaTabela();
   }
 
-  incluir(){
+  incluir() {
     this.router.navigate(['incluir']);
   }
 
+  carregaTabela() {
+    this.service.obterListaConsulta(this.page).subscribe(res => {
+      this.page.totalElements = res.data.quantidade;
+      this.rows = res.data.dados;
+    })
+  }
+
+  filtro(event) {
+    if (!event.target.value) {
+      this.page.descricao = '';
+      this.page.pageNumber = 0;
+      this.carregaTabela();
+    }
+    if (event.keyCode == 13) {
+      this.page.descricao = event.target.value;
+      this.page.pageNumber = 0;
+      this.carregaTabela();
+    }
+  }
+
+  onSelect({ selected }) {
+    console.log('Select Event', selected, this.selected);
+  }
+
+  onActivate(event) {
+    console.log('Activate Event', event);
+  }
 }

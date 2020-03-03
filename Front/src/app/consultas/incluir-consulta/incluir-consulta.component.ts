@@ -27,9 +27,7 @@ export class IncluirConsultaComponent implements OnInit {
   }
 
   salvar() {
-    console.log('salvando');
     this.service.salvarConsulta(this.model).subscribe(res =>{
-      console.log(res);
     })
   }
 

@@ -1,6 +1,7 @@
 ﻿using Itix.Persistence.Context;
 using Itix.Persistence.Entity;
 using Itix.Utilities.ViewModel;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -26,14 +27,24 @@ namespace Itix.Persistense.Repositories
             return _context.Consulta.Find(codigo);
         }
 
-        public override List<Consulta> ObterLista(BaseViewModel param)
+        public override (int, List<Consulta>) ObterLista(BaseViewModel param)
         {
-            return _context.Consulta
-                        .Where(t => t.Observacoes.Contains(param.descricao))
-                        .Skip(param.pageSize * param.pageNumber)
-                        .Take(param.pageSize)
-                        .ToList();
+            var query = _context.Consulta.Where(t => t.Inicio >= param.database && !t.DataDesativacao.HasValue);
+
+            if (!string.IsNullOrEmpty(param.descricao))
+                query = query.Where(t => t.Observacoes.Contains(param.descricao) || t.Paciente.Contains(param.descricao));
+
+            var quantidade = query.Count();
+
+            var lista = query.Skip(param.pageSize * param.pageNumber)
+                       .OrderBy(t => t.Inicio)
+                       .Take(param.pageSize)
+                       .ToList();
+
+            return (quantidade, lista);
+
         }
+
 
         public override Consulta Remove(int codigo)
         {

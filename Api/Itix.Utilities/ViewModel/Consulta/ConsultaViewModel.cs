@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Itix.Utilities.ViewModel.Consulta
 {
-    public class ConsultaViewModel:BaseViewModel
+    public class ConsultaViewModel : BaseViewModel
     {
         public int Id { get; set; }
         public string Paciente { get; set; }
