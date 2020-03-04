@@ -14,6 +14,8 @@ import { MyHttpInterceptor } from './util/MyHttpInterceptor';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ConsultaFormComponent } from './consultas/consulta-form/consulta-form.component';
 import { EditarConsultaComponent } from './consultas/editar-consulta/editar-consulta.component';
+import { LoadingInterceptorService } from './util/LoadingInterceptorService';
+import { LoadingComponent } from './core/loading/loading.component';
 
 @NgModule({
   declarations: [
@@ -24,6 +26,7 @@ import { EditarConsultaComponent } from './consultas/editar-consulta/editar-cons
     IncluirConsultaComponent,
     ConsultaFormComponent,
     EditarConsultaComponent,
+    LoadingComponent
   ],
   imports: [
     BrowserModule,
@@ -33,7 +36,10 @@ import { EditarConsultaComponent } from './consultas/editar-consulta/editar-cons
     HttpClientModule,
     BrowserAnimationsModule
   ],
-  providers: [{ provide: HTTP_INTERCEPTORS, useClass: MyHttpInterceptor, multi: true }],
+  providers: [
+    { provide: HTTP_INTERCEPTORS, useClass: MyHttpInterceptor, multi: true },
+    { provide: HTTP_INTERCEPTORS, useClass: LoadingInterceptorService, multi: true }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
