@@ -11,7 +11,7 @@ import { ConsultasService } from './consultas.service';
 export class ConsultasComponent implements OnInit {
   page = new Page();
   rows: Object[] = [];
-  selected: Object[] = [];
+  selected: any[] = [];
 
   constructor(private router: Router, private service: ConsultasService) { }
 
@@ -26,6 +26,10 @@ export class ConsultasComponent implements OnInit {
 
   incluir() {
     this.router.navigate(['incluir']);
+  }
+
+  editar() {
+    this.router.navigate(['editar/', this.selected[0].id]);
   }
 
   carregaTabela() {
@@ -49,10 +53,6 @@ export class ConsultasComponent implements OnInit {
   }
 
   onSelect({ selected }) {
-    console.log('Select Event', selected, this.selected);
-  }
-
-  onActivate(event) {
-    console.log('Activate Event', event);
+    console.log(this.selected[0].id)
   }
 }

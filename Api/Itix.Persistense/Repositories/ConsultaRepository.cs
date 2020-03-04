@@ -1,6 +1,7 @@
 ﻿using Itix.Persistence.Context;
 using Itix.Persistence.Entity;
 using Itix.Utilities.ViewModel;
+using Itix.Utilities.ViewModel.Consulta;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -18,6 +19,13 @@ namespace Itix.Persistense.Repositories
         public override Consulta Adiciona(Consulta item)
         {
             _context.Add(item);
+            _context.SaveChanges();
+            return item;
+        }
+
+        public override Consulta Edita(Consulta item)
+        {
+            _context.Update(item);
             _context.SaveChanges();
             return item;
         }
@@ -43,6 +51,14 @@ namespace Itix.Persistense.Repositories
 
             return (quantidade, lista);
 
+        }
+
+        public bool VerificaConsultaConflitante(ConsultaViewModel param)
+        {
+            return _context.Consulta.Any(t => (t.Inicio >= param.Inicio && t.Inicio < param.Fim)
+                                            || (t.Fim > param.Inicio && t.Fim <= param.Fim)
+                                            || (t.Inicio >= param.Inicio && t.Fim <= param.Fim)
+                                            && !t.DataDesativacao.HasValue);
         }
 
 

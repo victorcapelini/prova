@@ -12,6 +12,8 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { MyHttpInterceptor } from './util/MyHttpInterceptor';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { ConsultaFormComponent } from './consultas/consulta-form/consulta-form.component';
+import { EditarConsultaComponent } from './consultas/editar-consulta/editar-consulta.component';
 
 @NgModule({
   declarations: [
@@ -20,6 +22,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     HomeComponent,
     ConsultasComponent,
     IncluirConsultaComponent,
+    ConsultaFormComponent,
+    EditarConsultaComponent,
   ],
   imports: [
     BrowserModule,

@@ -19,6 +19,8 @@ namespace Itix.Persistense.Repositories
 
         public abstract T Adiciona(T item);
 
+        public abstract T Edita(T item);
+
         public abstract T Remove(int codigo);
 
         public abstract T Obter(int codigo);

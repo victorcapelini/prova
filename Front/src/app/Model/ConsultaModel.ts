@@ -4,14 +4,30 @@ export class ConsultaModel {
     DataNascimentoPaciente: Date;
     Inicio: Date;
     Fim: Date;
-    Observacoes: string = '';
+    Observacoes: string = '';   
 }
 
 export interface IConsultaModel {
-    Id: number;
-    Paciente: string;
-    DataNascimentoPaciente: string;
-    Inicio: string;
-    Fim: string;
-    Observacoes: string;
+    id: number;
+    paciente: string;
+    dataNascimentoPaciente: string;
+    inicio: string;
+    fim: string;
+    observacoes: string;
+}
+
+export function ConsultaInterfaceToModel(consulta: IConsultaModel): ConsultaModel {
+    let consultaModel = new ConsultaModel();
+    consultaModel.Id = consulta.id;
+    consultaModel.Paciente = consulta.paciente;
+    consultaModel.DataNascimentoPaciente = new Date(consulta.dataNascimentoPaciente);
+    consultaModel.Inicio = new Date(consulta.inicio);
+    consultaModel.Fim = new Date(consulta.fim);
+    consultaModel.Observacoes = consulta.observacoes;
+    return consultaModel
+}
+
+export interface IConsultaRequest {
+    success: boolean;
+    data: IConsultaModel;
 }

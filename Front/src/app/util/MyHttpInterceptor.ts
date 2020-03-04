@@ -30,7 +30,6 @@ export class MyHttpInterceptor implements HttpInterceptor {
     const cloneReq = req.clone({ headers });
 
     return next.handle(cloneReq).do(evt => {
-      console.log(evt);
       if (evt instanceof HttpResponse) {
         switch (evt.status) {
           case 200: {

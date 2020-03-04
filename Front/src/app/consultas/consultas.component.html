@@ -3,10 +3,10 @@
         <button type="button" class="btn btn-success" (click)="incluir()">Incluir</button>
     </div>
     <div class="col-1">
-        <button type="button" class="btn btn-primary">Alterar</button>
+        <button [disabled]='!(selected.length==1)' type="button" class="btn btn-primary" (click)="editar()">Editar</button>
     </div>
     <div class="col-1">
-        <button type="button" class="btn btn-danger">Excluir</button>
+        <button [disabled]='!(selected.length>0)' type="button" class="btn btn-danger">Excluir</button>
     </div>
 
     <div class="offset-4 col-4 input-group">
@@ -20,7 +20,7 @@
         <ngx-datatable class="material" [rows]="rows" columnMode="force" [headerHeight]="50" [footerHeight]="50"
             rowHeight="auto" [externalPaging]="true" [count]="page.totalElements" [offset]="page.pageNumber"
             [limit]="page.size" (page)="setPage($event)" [selected]="selected" selectionType="single"
-            (activate)="onActivate($event)" (select)="onSelect($event)">
+            (select)="onSelect($event)">
 
             <ngx-datatable-column prop="paciente" name="Paciente"></ngx-datatable-column>
             <ngx-datatable-column prop="inicio" name="Inicio"></ngx-datatable-column>
