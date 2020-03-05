@@ -10,8 +10,9 @@
         <div class="col-4">
             <div class="form-group">
                 <label>Data de nascimento</label>
-                <input type="date" datetime="dd/MM/yyyy" class="form-control" formControlName="DataNascimento"
-                    [ngModel]='model.DataNascimentoPaciente | date:"dd/MM/yyyy"'>
+                <input type="date" class="form-control" formControlName="DataNascimento"
+                    [ngModel]='model.DataNascimentoPaciente | date:"yyyy-MM-dd"'
+                    (ngModelChange)="model.DataNascimentoPaciente=$event">
             </div>
         </div>
     </div>
@@ -20,13 +21,14 @@
             <div class="form-group">
                 <label>Inicio da consulta</label>
                 <input type="datetime-local" class="form-control" formControlName="DataInicio"
-                    [(ngModel)]='model.Inicio'>
+                    [ngModel]='model.Inicio | date:"yyyy-MM-ddThh:mm"' (ngModelChange)="model.Inicio=$event">
             </div>
         </div>
         <div class="col-4">
             <div class="form-group">
                 <label>Fim da consulta</label>
-                <input type="datetime-local" class="form-control" formControlName="DataFim" [(ngModel)]='model.Fim'>
+                <input type="datetime-local" class="form-control" formControlName="DataFim"
+                    [ngModel]='model.Fim | date:"yyyy-MM-ddThh:mm"' (ngModelChange)="model.Fim=$event">
             </div>
         </div>
     </div>

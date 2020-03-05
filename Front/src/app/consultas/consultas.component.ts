@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Page } from '../Model/Page';
 import { Router } from '@angular/router';
 import { ConsultasService } from './consultas.service';
+import swal from 'sweetalert2'
 
 @Component({
   selector: 'app-consultas',
@@ -31,7 +32,29 @@ export class ConsultasComponent implements OnInit {
   editar() {
     this.router.navigate(['editar/', this.selected[0].id]);
   }
-
+  apagar() {
+    swal.fire({
+      title: 'Excluir Consulta?',
+      text: "Tem certeza que deseja remover a consulta?",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#d33',
+      cancelButtonColor: '#3085d6',
+      confirmButtonText: 'Sim',
+      cancelButtonText: 'Não',
+    }).then((result) => {
+      if (result.value) {
+        this.service.apagarConsulta(this.selected[0].id).subscribe(res => {
+          swal.fire(
+            'Removida!',
+            'Consultada excluída com sucesso!',
+            'success'
+          )
+          this.carregaTabela();
+        })
+      }
+    })
+  }
   carregaTabela() {
     this.service.obterListaConsulta(this.page).subscribe(res => {
       this.page.totalElements = res.data.quantidade;
@@ -50,9 +73,5 @@ export class ConsultasComponent implements OnInit {
       this.page.pageNumber = 0;
       this.carregaTabela();
     }
-  }
-
-  onSelect({ selected }) {
-    console.log(this.selected[0].id)
   }
 }

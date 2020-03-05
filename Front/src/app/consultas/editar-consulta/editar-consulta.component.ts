@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ConsultaModel, ConsultaInterfaceToModel } from 'src/app/Model/ConsultaModel';
 import { Router, ActivatedRoute } from '@angular/router';
 import { ConsultasService } from '../consultas.service';
+import swal from 'sweetalert2'
 
 @Component({
   selector: 'app-editar-consulta',
@@ -25,6 +26,11 @@ export class EditarConsultaComponent implements OnInit {
 
   salvar(consulta: ConsultaModel) {
     this.service.editarConsulta(consulta).subscribe(() => {
+      swal.fire(
+        'Edição',
+        'Consulta salva com sucesso!',
+        'success'
+      )
       this.router.navigate(['']);
     })
   }

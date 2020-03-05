@@ -35,6 +35,6 @@ export class ConsultasService {
   }
 
   apagarConsulta(id: string): Observable<any> {
-    return this.http.get(API + 'Consulta/ApagarConsulta/'+id);
+    return this.http.delete(API + 'Consulta/ApagarConsulta/'+id);
   }
 }

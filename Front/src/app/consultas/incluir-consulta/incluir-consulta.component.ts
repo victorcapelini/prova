@@ -3,6 +3,7 @@ import { FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ConsultaModel } from 'src/app/Model/ConsultaModel';
 import { ConsultasService } from '../consultas.service';
+import swal from 'sweetalert2'
 
 @Component({
   selector: 'app-incluir-consulta',
@@ -19,7 +20,12 @@ export class IncluirConsultaComponent implements OnInit {
   }
 
   salvar(consulta:ConsultaModel) {
-    this.service.editarConsulta(consulta).subscribe(() => {
+    this.service.salvarConsulta(consulta).subscribe(() => {
+      swal.fire(
+        'Criação',
+        'Consulta salva com sucesso!',
+        'success'
+      )
       this.router.navigate(['']);
     })
   }

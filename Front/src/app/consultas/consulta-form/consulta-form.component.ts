@@ -1,7 +1,6 @@
-import { Component, OnInit, Output, EventEmitter, Input, SimpleChanges } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter, Input, SimpleChanges, ChangeDetectorRef } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ConsultaModel } from 'src/app/Model/ConsultaModel';
-import { isNullOrUndefined } from 'util';
 
 @Component({
   selector: 'app-consulta-form',
@@ -15,7 +14,7 @@ export class ConsultaFormComponent implements OnInit {
   @Output() back = new EventEmitter();
   @Output() saveForm = new EventEmitter<ConsultaModel>();
 
-  constructor(private formBuilder: FormBuilder) { }
+  constructor(private formBuilder: FormBuilder, private cdr: ChangeDetectorRef) { }
 
   ngOnInit(): void {
     this.consultaForm = this.formBuilder.group({
@@ -27,8 +26,13 @@ export class ConsultaFormComponent implements OnInit {
     })
   }
   ngOnChanges(changes: SimpleChanges) {
-    if(changes.model) 
+    if (changes.model) {
       this.model = changes.model.currentValue;
+    }
+  }
+
+  ngAfterContentChecked() {
+    this.cdr.detectChanges();
   }
   salvar() {
     this.saveForm.emit(this.model);

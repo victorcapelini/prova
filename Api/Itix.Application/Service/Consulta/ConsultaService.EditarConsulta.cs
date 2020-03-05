@@ -12,6 +12,9 @@ namespace Itix.Application.Service.Consulta
     {
         public object EditarConsulta(ConsultaViewModel param)
         {
+            if (param.Fim <= param.Inicio)
+                throw new CoreException("Horário final anterior a horário inicial");
+
             var consulta = _consultaRepository.Obter(param.Id);
 
             consulta.Inicio = param.Inicio;

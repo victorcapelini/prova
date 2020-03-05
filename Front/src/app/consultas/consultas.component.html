@@ -7,7 +7,7 @@
             (click)="editar()">Editar</button>
     </div>
     <div class="col-1">
-        <button [disabled]='!(selected.length>0)' type="button" class="btn btn-danger">Excluir</button>
+        <button [disabled]='!(selected.length>0)' type="button" class="btn btn-danger" (click)="apagar()">Excluir</button>
     </div>
 
     <div class="offset-4 col-4 input-group">
@@ -20,8 +20,7 @@
     <div class="col-12">
         <ngx-datatable class="material" [rows]="rows" columnMode="force" [headerHeight]="50" [footerHeight]="50"
             rowHeight="auto" [externalPaging]="true" [count]="page.totalElements" [offset]="page.pageNumber"
-            [limit]="page.size" (page)="setPage($event)" [selected]="selected" selectionType="single"
-            (select)="onSelect($event)">
+            [limit]="page.size" (page)="setPage($event)" [selected]="selected" selectionType="single">
             <ngx-datatable-column prop="paciente" name="Paciente"></ngx-datatable-column>
             <ngx-datatable-column prop="inicio" name="Inicio">
                 <ng-template let-value="value" ngx-datatable-cell-template>
